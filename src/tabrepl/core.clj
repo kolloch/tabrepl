@@ -23,10 +23,10 @@
 
 (defn last-word [buffer]
   (->> buffer
-      (re-seq #"[/a-zA-Z0-9_-]+")
+      (re-seq #"[\*/a-zA-Z0-9_-]+")
       last))
 
-(def completor
+(defn create-completor []
      (reify Completor
             (complete
              [this buffer cursor candidates]
@@ -35,6 +35,36 @@
                (.addAll candidates completions)
                (- cursor (.length word))))))
 
+(defn create-reader [& opts]
+  (doto (ConsoleReader.)
+    (.addCompletor (create-completor))))
+
 (defn read-for-repl [cr request-prompt request-exit]
   (let [line (.readLine cr)]
     (if line (read-string line) request-exit)))
+
+(defn hook-into-main-repl []
+  (let [cr (create-reader)]
+    (clojure.main/repl
+     :read
+     (partial read-for-repl cr))))
+
+(defn readline-with-prompt [cr]
+  (.readLine cr (str *ns* " => ")))
+
+(defn pretty-eval [line]
+  (try 
+    (pprint/pprint (eval (read-string line)))
+
+    (catch Exception e (.printStackTrace e))))
+  
+(defn hook-into-console-reader []
+  (let [cr (create-reader)]
+    (println "Starting...")
+    (loop [line (readline-with-prompt cr)]
+
+      (if (nil? line)
+        nil
+        (do
+          (pretty-eval line)
+          (recur (readline-with-prompt cr)))))))
