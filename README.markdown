@@ -18,8 +18,7 @@ Run the standalone jar:
     Starting...
     clojure.core => (print
 
-    print                 print-ctor            print-doc             print-dup             print-method          print-namespace-doc   print-simple          print-special-doc
-print-str             printf                println               println-str
+    print                 print-ctor            print-doc             print-dup             print-method          print-namespace-doc   print-simple          print-special-doc print-str             printf                println               println-str
      clojure.core => (println
 
      println       println-str
