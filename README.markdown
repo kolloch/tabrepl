@@ -4,8 +4,8 @@ Small demo that it is pretty easy to make repl tab completion smarter.
 
 ## Usage
 
-lein uberjar
-java -jar tabrepl-*-standalone.jar
+   lein uberjar
+   java -jar tabrepl-*-standalone.jar
 
 ## License
 
