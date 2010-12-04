@@ -2,6 +2,14 @@
 
 Small demo that it is pretty easy to make repl tab completion smarter.
 
+When I have written this, I wondered why noone had written something
+that obviously useful before.
+
+Since then, I have discovered that the cake build tool includes a repl
+with tab completion just like I wanted to create with this.
+
+https://github.com/ninjudd/cake
+
 ## Usage
 
 Build a jar with all necessary classes:
